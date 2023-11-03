@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import styled from 'styled-components/native';
 
+const COLOR = {
+  RESULT: '#4e4c51',
+  RESET: '#5f5e62',
+  OPERATOR: '#f39c29',
+  NUM: '#5c5674',
+}
 
 // Button type: 'reset' | 'operator' | 'num'
 const Button = ({ text, onPress, flex, type }) => {
@@ -35,17 +41,28 @@ const ButtonContainer = styled.View`
   width: 100%;
 `
 
-const COLOR = {
-  RESULT: '#4e4c51',
-  RESET: '#5f5e62',
-  OPERATOR: '#f39c29',
-  NUM: '#5c5674',
-}
+const InputContainer = styled.View`
+  background-color: ${COLOR.RESULT};
+  min-height: 50px;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 10px;
+`
 
 export default () => {
+
+  const [input, setInput] = useState(0);
+  const [currentOperator, setCurrentOperator] = useState(null);
+  const [result, setResult] = useState(null);
+  const [tempInput, setTempInput] = useState(null);
+  const [tempOperator, setTempOperator] = useState(null);
+
   return (
-    <View style={{ flex: 1, width: 250 }}>
+    <View style={{ flex: 1, width: 250, justifyContent: 'center' }}>
       {/* 결과 */}
+      <InputContainer>
+        <Text style={{color: 'white', fontSize: 35, textAlign: 'right'}}>{input}</Text>
+      </InputContainer>
 
       {/* [AC ~ /] */}
       <ButtonContainer>
